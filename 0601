@@ -1,7 +1,8 @@
 Sys.setenv("PKG_CXXFLAGS"="-std=c++11")
 
 Rcpp::cppFunction('
-double mode(NumericVector v) {
+double mode(NumericVector v) {    
+// >mode - not forbidden name?
 if (std::any_of(v.begin(), v.end(),
 [](double x) -> bool{return NumericVector::is_na(x);}))
 stop("NA found");
