@@ -1,5 +1,5 @@
-# include <Rcpp .h>
-// [[ Rcpp :: plugins (" cpp11 ")]]
+# include <Rcpp.h>
+// [[ Rcpp::plugins("cpp11")]]
 
 Rcpp::cppFunction('
 RObject perms(IntegerVector x) {
