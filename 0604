@@ -1,20 +1,56 @@
-# include <unordered_set >
+# include <queue>
+
+//queue - Useful for implementing certain graph algorithms, like Dijkstra’s shortest path search
+//previously in R
+//shortestpath<-function(m) {
+//stopifnot(is.numeric(m),is.matrix(m),ncol(m)==nrow(m),ncol(m)>0,all(m %in% 0:1))  0/1 matrix nxn
+//m<-as.logical(m)
 
 
-Sys.setenv("PKG_CXXFLAGS"="-std=c++11")
-Rcpp::cppFunction('
-NumericVector unique2(NumericVector x) {
-std::unordered_set<double> set;
-for (const auto& e : x)
-set.insert(e);
-NumericVector ret(set.size());
-int i=0;
-for (const auto& item : set)
-ret[i++] = item;
-return ret;
+# include <Rcpp.h>
+// [[Rcpp::plugins ("cpp11")]]
+double shortestpath (const Rcpp::NumericMatrix & v) {
+double dist = 0.0;
+for (auto it = v.begin(); it!= v.end(); ++it)
+ if (dist[it]>dist[v]+it) dist[it]=dist[v]+it;
+return dist;
 }
-', includes="#include <unordered_set>")
+// [[ Rcpp :: export ]]
+double vector_test ( Rcpp::NumericVector x) {
+return shortestpath(x);
+}
 
-//comparison
-x <- as.double(sample(1:100, replace=TRUE, 100000))
-microbenchmark(u2=unique2(x), uR=unique(x))
+Rcout << dist[i];
+
+
+
+
+#include <Rcpp.h>
+using namespace Rcpp;
+#include<queue>
+
+//[[Rcpp::export]]
+XPtr<std::queue<double>> queue_create () {
+std::queue<double>* queue = new std::queue<double>();
+return XPtr < std :: queue <double> >(queue,true);
+}
+//[[Rcpp::export]]
+bool queue_empty(XPtr < std::queue <double> > queue) {
+return (*queue).empty();
+}
+// 	empty: checks whether the underlying container is empty 
+
+//[[Rcpp::export]]
+void queue_push (XPtr < std :: queue<double> > queue , double obj ) {
+(* queue).push (obj);
+}
+// push:inserts element at the end 
+
+//[[Rcpp::export]]
+double queue_pop (XPtr < std::queue <double> > queue) {
+if ((*queue).empty()) stop ("empty queue");
+double obj = (*queue).front(); //front - access the first element , back- access the last element
+(*queue).pop();
+return obj;
+}
+//pop:  	removes the first element 
