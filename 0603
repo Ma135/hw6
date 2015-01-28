@@ -1,1 +1,16 @@
-cfdsf
+# include <Rcpp .h>
+// [[ Rcpp :: plugins (" cpp11 ")]]
+double sum ( const Rcpp :: NumericVector & v) {
+double res = 0.0;
+for ( auto elem : v)
+res += elem ;
+return res;
+}
+// [[ Rcpp :: export ]]
+double vector_test ( Rcpp :: NumericVector x) {
+return sum(x);
+}
+
+//comparison
+x <- sample (1:5 , replace =TRUE , 100000)
+microbenchmark ( rle (x), rle2 (x), rle3 (x))
