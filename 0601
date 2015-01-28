@@ -1,16 +1,17 @@
-# include <Rcpp .h>
-// [[ Rcpp :: plugins (" cpp11 ")]]
-double sum ( const Rcpp :: NumericVector & v) {
-double res = 0.0;
-for ( auto elem : v)
-res += elem ;
-return res;
-}
-// [[ Rcpp :: export ]]
-double vector_test ( Rcpp :: NumericVector x) {
-return sum(x);
-}
+Sys.setenv("PKG_CXXFLAGS"="-std=c++11")
 
-//comparison
-x <- sample (1:5 , replace =TRUE , 100000)
-microbenchmark ( rle (x), rle2 (x), rle3 (x))
+Rcpp::cppFunction('
+double mode(NumericVector v) {
+if (std::any_of(v.begin(), v.end(),
+[](double x) -> bool{return NumericVector::is_na(x);}))
+stop("NA found");
+// freq <- table(v)
+//as.numeric(names(freq)[which.max(freq)])
+return std::accumulate(v.begin(), v.end(), 0.0);
+}
+', includes=c("#include <algorithm>"))
+
+
+mode(c(1,2,3,3,3,4,5,6,2))
+
+//should give 3
