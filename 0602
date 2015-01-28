@@ -1,11 +1,11 @@
-# include <Rcpp .h>
+# include <Rcpp.h>
 # include <vector>
-// [[ Rcpp :: plugins ("cpp11")]]
-List simplify2array2 (List input) {
+// [[ Rcpp::plugins("cpp11")]]
+List simplify2array2(List input) {
 int n = input.size();
-List out (n);
+List out(n);
 for(int i=0; i<n; ++i) {
-out[i] = input[i];
+out[i]=input[i];
 }
 return out;
 }
