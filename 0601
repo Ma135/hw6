@@ -5,8 +5,11 @@ double mode(NumericVector v) {
 if (std::any_of(v.begin(), v.end(),
 [](double x) -> bool{return NumericVector::is_na(x);}))
 stop("NA found");
+
+//in R:
 // freq <- table(v)
 //as.numeric(names(freq)[which.max(freq)])
+
 return std::accumulate(v.begin(), v.end(), 0.0);
 }
 ', includes=c("#include <algorithm>"))
