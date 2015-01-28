@@ -8,15 +8,15 @@
 
 
 # include <Rcpp.h>
-// [[Rcpp::plugins ("cpp11")]]
+//[[Rcpp::plugins ("cpp11")]]
 double shortestpath (const Rcpp::NumericMatrix & v) {
 double dist = 0.0;
 for (auto it = v.begin(); it!= v.end(); ++it)
  if (dist[it]>dist[v]+it) dist[it]=dist[v]+it;
 return dist;
 }
-// [[ Rcpp :: export ]]
-double vector_test ( Rcpp::NumericVector x) {
+//[[Rcpp::export]]
+double vector_test (Rcpp::NumericVector x) {
 return shortestpath(x);
 }
 
@@ -38,13 +38,13 @@ return XPtr < std :: queue <double> >(queue,true);
 bool queue_empty(XPtr < std::queue <double> > queue) {
 return (*queue).empty();
 }
-// 	empty: checks whether the underlying container is empty 
+//empty: checks whether the underlying container is empty 
 
 //[[Rcpp::export]]
 void queue_push (XPtr < std :: queue<double> > queue , double obj ) {
 (* queue).push (obj);
 }
-// push:inserts element at the end 
+//push: inserts element at the end 
 
 //[[Rcpp::export]]
 double queue_pop (XPtr < std::queue <double> > queue) {
@@ -53,4 +53,4 @@ double obj = (*queue).front(); //front - access the first element , back- access
 (*queue).pop();
 return obj;
 }
-//pop:  	removes the first element 
+//pop: removes the first element 
