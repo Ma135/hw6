@@ -12,3 +12,5 @@ return out;
 
 
 //simplify2array(list(1:3,4:6,7:9))
+//simplify2array(list(1:3,4:5,6:10)) - can not simplify
+//simplify2array(list(1,2,3)) - resuly atomic vector
