@@ -1,7 +1,7 @@
 # include <Rcpp .h>
-# include <vector >
-// [[ Rcpp :: plugins (" cpp11 ")]]
-List simplify2array (List input) {
+# include <vector>
+// [[ Rcpp :: plugins ("cpp11")]]
+List simplify2array2 (List input) {
 int n = input.size();
 List out (n);
 for(int i=0; i<n; ++i) {
@@ -11,6 +11,19 @@ return out;
 }
 
 
-//simplify2array(list(1:3,4:6,7:9))
-//simplify2array(list(1:3,4:5,6:10)) - can not simplify
-//simplify2array(list(1,2,3)) - resuly atomic vector
+//simplify2array2(list(1:3,4:6,7:9))
+//simplify2array2(list(1:3,4:5,6:10)) - can not simplify
+//simplify2array2(list(1,2,3)) - result as atomic vector
+
+microbenchmark(simplify2array(list(1:3,4:6,7:9)), simplify2array2(list(1:3,4:6,7:9)))
+
+
+//Rcpp::cppFunction('
+//NumericMatrix simplify2array(List n) {
+//NumericMatrix out(ncol, nrow);
+//for (int c=0; c<n; ++c)
+//for (int r=0; r<n; ++r)
+//out(r, c) = ;
+//return out;
+//}
+//')
